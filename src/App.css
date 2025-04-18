@@ -45,7 +45,7 @@ input[type='number'] {
     border-radius: 4px;
     font-size: 16px;
     text-align: center;
-    width: 40px;
+    width: 60px;
     outline: none;
     transition: border-color 0.3s;
 }
