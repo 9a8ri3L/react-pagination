@@ -5,7 +5,6 @@ import './Products.css';
 
 interface ProductListProps {
     currentData: Product[];
-    loading: boolean;
     error: Error | null;
 }
 

@@ -44,13 +44,6 @@ const DataTable: React.FC = () => {
                 Simple Customizable React Pagination
             </h1>
             <Suspense fallback={<LoadingSkeleton />}>
-                <LazyProducts
-                    currentData={currentData}
-                    loading={loading}
-                    error={error}
-                />
-                {error && <p>{error.message}</p>}
-
                 <Pagination
                     totalItems={totalItems ?? 0}
                     itemsPerPage={itemsPerPage}
@@ -101,12 +94,29 @@ const DataTable: React.FC = () => {
                                 )
                                     return;
 
+                                setCurrentPage((prev) =>
+                                    parsedValue > itemsPerPage
+                                        ? Math.ceil(
+                                              Math.min(
+                                                  prev * itemsPerPage,
+                                                  totalItems,
+                                              ) / parsedValue,
+                                          )
+                                        : Math.ceil(
+                                              ((prev - 1) * itemsPerPage + 1) /
+                                                  parsedValue,
+                                          ),
+                                );
+
                                 setItemsPerPage(parsedValue);
                             }}
                         />
                     </label>
                 </div>
+
+                <LazyProducts currentData={currentData} error={error} />
             </Suspense>
+            {error && <p>{error.message}</p>}
         </div>
     );
 };
